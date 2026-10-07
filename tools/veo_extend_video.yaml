@@ -1,0 +1,130 @@
+identity:
+  name: veo_extend_video
+  author: acedatacloud
+  label:
+    en_US: Veo Extend Video
+    zh_Hans: Veo 延长视频
+description:
+  human:
+    en_US: Extend Video through the Ace Data Cloud Veo API.
+    zh_Hans: 通过 Ace Data Cloud Veo API 执行 Extend Video。
+  llm: Extend Video through the Ace Data Cloud Veo API. For asynchronous results,
+    preserve task_id and use the task retrieval tool until completion. A successful
+    submission is not completed output.
+parameters:
+- name: video_id
+  type: string
+  required: true
+  form: form
+  label:
+    en_US: Video Id
+    zh_Hans: 视频 ID
+  human_description:
+    en_US: Set video id for this operation.
+    zh_Hans: 先前生成的视频任务 ID。输入视频本身可以是 `/veo/extend` 调用的输出（支持链式续写），也接受 reshoot 或对象编辑（object-edit）的输出结果。
+  llm_description: Set video id for this operation.
+- name: model
+  type: select
+  required: true
+  form: form
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  human_description:
+    en_US: Select a model currently supported by this API. Availability and pricing
+      depend on the chosen model.
+    zh_Hans: 用于视频续写的模型。目前仅支持 Veo 3.1 系列（`veo31`、`veo31-fast`）。
+  llm_description: Select a model currently supported by this API. Availability and
+    pricing depend on the chosen model.
+  options:
+  - value: veo31-fast
+    label:
+      en_US: veo31-fast
+      zh_Hans: veo31-fast
+  - value: veo31
+    label:
+      en_US: veo31
+      zh_Hans: veo31
+- name: prompt
+  type: string
+  required: false
+  form: llm
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  human_description:
+    en_US: Set prompt for this operation.
+    zh_Hans: 可选的提示词，用于引导视频续写部分的内容生成。
+  llm_description: Set prompt for this operation.
+- name: aspect_ratio
+  type: select
+  required: false
+  form: form
+  label:
+    en_US: Aspect Ratio
+    zh_Hans: 画面比例
+  human_description:
+    en_US: Aspect ratio of the extended video.
+    zh_Hans: Aspect ratio of the extended video.
+  llm_description: Aspect ratio of the extended video.
+  options:
+  - value: '16:9'
+    label:
+      en_US: '16:9'
+      zh_Hans: '16:9'
+  - value: '9:16'
+    label:
+      en_US: '9:16'
+      zh_Hans: '9:16'
+- name: resolution
+  type: select
+  required: false
+  form: form
+  label:
+    en_US: Resolution
+    zh_Hans: 分辨率
+  human_description:
+    en_US: Optional output resolution.
+    zh_Hans: Optional output resolution.
+  llm_description: Optional output resolution.
+  options:
+  - value: 720p
+    label:
+      en_US: 720p
+      zh_Hans: 720p
+  - value: 1080p
+    label:
+      en_US: 1080p
+      zh_Hans: 1080p
+- name: callback_url
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Callback Url
+    zh_Hans: 回调 URL
+  human_description:
+    en_US: Set callback url for this operation.
+    zh_Hans: 视频续写完成后将被调用的回调 URL。
+  llm_description: Set callback url for this operation.
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/veo_extend_video.py

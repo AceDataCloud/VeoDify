@@ -1,0 +1,131 @@
+identity:
+  name: veo_reshoot_video
+  author: acedatacloud
+  label:
+    en_US: Veo Reshoot Video
+    zh_Hans: Veo 调整镜头运动
+description:
+  human:
+    en_US: Reshoot Video through the Ace Data Cloud Veo API.
+    zh_Hans: 通过 Ace Data Cloud Veo API 执行 Reshoot Video。
+  llm: Reshoot Video through the Ace Data Cloud Veo API. For asynchronous results,
+    preserve task_id and use the task retrieval tool until completion. A successful
+    submission is not completed output.
+parameters:
+- name: video_id
+  type: string
+  required: true
+  form: form
+  label:
+    en_US: Video Id
+    zh_Hans: 视频 ID
+  human_description:
+    en_US: Set video id for this operation.
+    zh_Hans: 已生成的视频任务 ID。由 `/veo/extend` 生成的视频不可作为来源输入。
+  llm_description: Set video id for this operation.
+- name: motion_type
+  type: select
+  required: true
+  form: form
+  label:
+    en_US: Motion Type
+    zh_Hans: 镜头运动
+  human_description:
+    en_US: Set motion type for this operation.
+    zh_Hans: 重新渲染视频时应用的摄像机运动类型。`STATIONARY*` 表示保持摄像机固定（可附加平移 / 俯仰 / 推拉变焦效果）。`UP` /
+      `DOWN` 表示摄像机垂直移动。`LEFT_TO_RIGHT` / `RIGHT_TO_LEFT` 表示摄像机水平横移。`FORWARD` / `BACKWARD`
+      表示摄像机沿纵深轴前后移动。`DOLLY_IN_ZOOM_OUT` / `DOLLY_OUT_ZOOM_IN` 表示经典的推拉变焦效果。
+  llm_description: Set motion type for this operation.
+  options:
+  - value: STATIONARY
+    label:
+      en_US: STATIONARY
+      zh_Hans: STATIONARY
+  - value: STATIONARY_UP
+    label:
+      en_US: STATIONARY_UP
+      zh_Hans: STATIONARY_UP
+  - value: STATIONARY_DOWN
+    label:
+      en_US: STATIONARY_DOWN
+      zh_Hans: STATIONARY_DOWN
+  - value: STATIONARY_LEFT
+    label:
+      en_US: STATIONARY_LEFT
+      zh_Hans: STATIONARY_LEFT
+  - value: STATIONARY_RIGHT
+    label:
+      en_US: STATIONARY_RIGHT
+      zh_Hans: STATIONARY_RIGHT
+  - value: STATIONARY_DOLLY_IN_ZOOM_OUT
+    label:
+      en_US: STATIONARY_DOLLY_IN_ZOOM_OUT
+      zh_Hans: STATIONARY_DOLLY_IN_ZOOM_OUT
+  - value: STATIONARY_DOLLY_OUT_ZOOM_IN
+    label:
+      en_US: STATIONARY_DOLLY_OUT_ZOOM_IN
+      zh_Hans: STATIONARY_DOLLY_OUT_ZOOM_IN
+  - value: UP
+    label:
+      en_US: UP
+      zh_Hans: UP
+  - value: DOWN
+    label:
+      en_US: DOWN
+      zh_Hans: DOWN
+  - value: LEFT_TO_RIGHT
+    label:
+      en_US: LEFT_TO_RIGHT
+      zh_Hans: LEFT_TO_RIGHT
+  - value: RIGHT_TO_LEFT
+    label:
+      en_US: RIGHT_TO_LEFT
+      zh_Hans: RIGHT_TO_LEFT
+  - value: FORWARD
+    label:
+      en_US: FORWARD
+      zh_Hans: FORWARD
+  - value: BACKWARD
+    label:
+      en_US: BACKWARD
+      zh_Hans: BACKWARD
+  - value: DOLLY_IN_ZOOM_OUT
+    label:
+      en_US: DOLLY_IN_ZOOM_OUT
+      zh_Hans: DOLLY_IN_ZOOM_OUT
+  - value: DOLLY_OUT_ZOOM_IN
+    label:
+      en_US: DOLLY_OUT_ZOOM_IN
+      zh_Hans: DOLLY_OUT_ZOOM_IN
+- name: callback_url
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Callback Url
+    zh_Hans: 回调 URL
+  human_description:
+    en_US: Set callback url for this operation.
+    zh_Hans: 重拍完成后将被调用的回调 URL。
+  llm_description: Set callback url for this operation.
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/veo_reshoot_video.py

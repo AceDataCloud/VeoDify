@@ -1,41 +1,62 @@
-# Veo
+# Veo for Dify
 
-**Author:** acedatacloud
+Use the Ace Data Cloud Veo APIs in Dify workflows. Maintained by Ace Data Cloud. The plugin is free; API calls require your own authorized account and use the current service pricing.
 
-**Type:** tool provider plugin
+## Setup
 
-Use the Ace Data Cloud Veo APIs in Dify. This free plugin requires your own Ace Data Cloud token; API calls incur the current service usage charges.
+1. Activate the service at [Ace Data Cloud](https://platform.acedata.cloud/console/applications), check [current pricing](https://platform.acedata.cloud/models), and create an API token with the required service access.
+2. Install from the official Dify Marketplace once the submission is approved and published. During review, use Dify's documented package/debug installation in a test workspace. A GitHub PR does not establish Marketplace availability or default installation.
+3. In Dify's **Plugins / Tools** page, authorize this provider with **Bearer Token** (`acedata_bearer_token`). Do not include credentials in prompts or exported workflows. Credential validation never generates media. Authorization performs a read-only task query.
 
 ## Tools
 
 | Tool | API |
 |---|---|
-| `veo_generate_video` | `/veo/videos` |
+| `veo_generate_video` | `POST /veo/videos` |
+| `veo_extend_video` | `POST /veo/extend` |
+| `veo_edit_objects` | `POST /veo/objects` |
+| `veo_reshoot_video` | `POST /veo/reshoot` |
+| `veo_upsample_video` | `POST /veo/upsample` |
+| `veo_task_retrieve` | `POST /veo/tasks` |
+| `veo_tasks_retrieve_batch` | `POST /veo/tasks` |
 
-The separate task tool retrieves or waits up to 240 seconds for a submitted task.
+See [CAPABILITIES.md](CAPABILITIES.md) for the current MCP comparison and parameter equivalents. All exposed inputs follow the current published API; model combinations and availability still depend on the service.
 
-## Credentials and installation
+## Run a workflow
 
-Create a token for this service at https://platform.acedata.cloud/console/credentials. Authorize the provider with `acedata_bearer_token` without the `Bearer ` prefix. Validation makes a free task query; it never generates output.
+For generation, use **Start → generation tool → task retrieval → Output**. Fill the prompt/text and model, and enter arrays/objects as JSON. Optional values can be left empty. The example requests in [tests/contract-examples.json](https://github.com/AceDataCloud/VeoDify/blob/main/tests/contract-examples.json) show valid shapes; example.org URLs are placeholders that must be replaced with your own accessible media.
 
-During review, use the official Dify remote-debug workflow in an isolated workspace. Install through Marketplace after publication. Source availability does not imply Marketplace listing.
+A submission can return `status=pending` with `task_id`. Save that ID, then use the retrieval tool with `wait_seconds=0` to read once, or 1–240 for a bounded wait. If still pending, query the same task again. Disable automatic retries on generation nodes. No paid request is automatically retried and no substitute model is selected.
 
-## Workflow
+`status`, `success`, `task_id`, `trace_id`, `media_urls`, `data`, and `result` are available as Dify variables. Only a terminal successful result has `success=true`; intermediate previews remain pending. Batch queries preserve the state of each item. Terminal task failures raise a tool error. Synchronous search, text and management results are returned directly in `data`/`result`. The plugin does not execute model-generated tools.
 
-Use Start → Veo tool → Output. Select the model and parameters described by the tool. Generation is asynchronous: preserve `task_id`, then use the task tool until `status` is `succeeded`. If still pending, query the same ID again. Do not repeat a paid submission to check its progress.
+The table maps service operations to Dify tools. Different MCP helper functions may use the same action selector or structured JSON input.
 
-Outputs include `status`, `success`, `task_id`, `trace_id`, `data`, `result` and `media_urls`. Completed images use Dify image messages; other media includes output links. Pending tasks are not complete, and failed requests raise tool errors. The tool table defines this release's supported endpoints. Nested API values use JSON arrays or objects.
+Task/query calls retry transport failures at most twice. Generation has one attempt and a 10-second connect / 60-second read timeout. After a timeout, inspect [request history](https://platform.acedata.cloud/console/usages) before resubmitting; the accepted task may still be running. Delete/archive operations require `confirm=true`.
 
-The contract follows the current public API. The plugin fixes HTTPS to `api.acedata.cloud`, disables redirects and paid automatic retries, masks upstream error bodies, and omits stored requests/account/routing metadata. Requests have a 10-second connection and 60-second read timeout. API model availability and pricing can change; check https://platform.acedata.cloud/models and reconcile the task/trace in https://platform.acedata.cloud/console/usages. Dify execution counts are not the API billing ledger. No automatic fallback is added.
+## Branding and privacy
 
-See [PRIVACY.md](PRIVACY.md). Submit only inputs you may use. Never include keys in prompts or exported workflows.
+The plugin uses the exact existing system asset recorded in [branding provenance](https://github.com/AceDataCloud/VeoDify/blob/main/tests/branding-source.json), for both light and dark icons. No logo was generated or redrawn. Asset SHA256: `26bf44b131bf91b6e7b4ce1df82925346b7e850583d8f5fa8f449d4350fd5af8`.
 
-## Source and support
+Requests go directly to `https://api.acedata.cloud`. The plugin passes reference URLs to that API and returns media links; it does not fetch arbitrary reference URLs. Dify may fetch/render output links under its own policies. Never submit media you lack permission to process. See [PRIVACY.md](PRIVACY.md).
+
+API charges are recorded in Credits in your Ace Data Cloud account. Check the actual usage ledger; Dify execution counts are not a billing ledger. USD = Credits × your current package price / amount.
+
+## Development and evidence
+
+Python 3.12 is required. Install `requirements.txt`, then run:
+
+```sh
+python -m pytest tests -q
+ruff check .
+ruff format --check .
+dify plugin package .
+```
+
+Source contracts, MCP mappings, brand provenance and offline cases are in `tests/`. Recorded real Dify results state their exact coverage; they do not establish all models/options or Dify Cloud/Marketplace installation. See [tests/README.md](https://github.com/AceDataCloud/VeoDify/blob/main/tests/README.md).
 
 - Source: https://github.com/AceDataCloud/VeoDify
 - Issues: https://github.com/AceDataCloud/VeoDify/issues
 - Contact: dev@acedata.cloud
-- [Simplified Chinese](readme/README_zh_Hans.md)
 - License: MIT
-
-Development: Python 3.12, `pip install -r requirements.txt`, `pytest tests -q`, `ruff check .`, and `dify plugin package .`.
+- [Simplified Chinese](readme/README_zh_Hans.md)

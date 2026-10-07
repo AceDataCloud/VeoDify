@@ -1,0 +1,111 @@
+{
+  "backend_revision": "fa94598267a82545fb1afed6ee26bafd6cbb9ca7",
+  "mcp_revision": "f0eed10abf310824cb4c33d4944c63d3654ac95b",
+  "tools": [
+    {
+      "tool": "veo_generate_video",
+      "method": "POST",
+      "path": "/veo/videos",
+      "parameters": [
+        "model",
+        "resolution",
+        "action",
+        "prompt",
+        "video_id",
+        "translation",
+        "aspect_ratio",
+        "image_urls",
+        "callback_url"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/52a0fa83-3c78-4793-b45a-c1a5c869ae46.json"
+    },
+    {
+      "tool": "veo_extend_video",
+      "method": "POST",
+      "path": "/veo/extend",
+      "parameters": [
+        "video_id",
+        "model",
+        "prompt",
+        "aspect_ratio",
+        "resolution",
+        "callback_url"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/65239a42-6b69-41bc-9b88-19c294af033a.json"
+    },
+    {
+      "tool": "veo_edit_objects",
+      "method": "POST",
+      "path": "/veo/objects",
+      "parameters": [
+        "action",
+        "video_id",
+        "prompt",
+        "image_mask",
+        "callback_url"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/cb3cfd7a-494b-4e02-876c-c1fb996342f5.json"
+    },
+    {
+      "tool": "veo_reshoot_video",
+      "method": "POST",
+      "path": "/veo/reshoot",
+      "parameters": [
+        "video_id",
+        "motion_type",
+        "callback_url"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/f0e5cf7b-2052-4ec3-9db3-9d61108b4e97.json"
+    },
+    {
+      "tool": "veo_upsample_video",
+      "method": "POST",
+      "path": "/veo/upsample",
+      "parameters": [
+        "action",
+        "video_id",
+        "callback_url"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/f54de6db-db6d-4a01-8c24-dba1c1fab458.json"
+    },
+    {
+      "tool": "veo_task_retrieve",
+      "method": "POST",
+      "path": "/veo/tasks",
+      "parameters": [
+        "task_id",
+        "wait_seconds",
+        "trace_id"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/437a7558-7c5b-4341-9088-4a54443a78a4.json"
+    },
+    {
+      "tool": "veo_tasks_retrieve_batch",
+      "method": "POST",
+      "path": "/veo/tasks",
+      "parameters": [
+        "ids",
+        "trace_id",
+        "trace_ids",
+        "offset",
+        "limit",
+        "type",
+        "created_at_min",
+        "created_at_max"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/437a7558-7c5b-4341-9088-4a54443a78a4.json"
+    }
+  ],
+  "mcp_scope": "veo",
+  "notes": [
+    "Informational MCP model/action lists are represented by tool dropdowns and README capability tables.",
+    "GPT Image covers image-generation/editing/task capabilities of the broader OpenAI MCP; chat is supplied by ModelProviderDify."
+  ]
+}

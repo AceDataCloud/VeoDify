@@ -1,11 +1,10 @@
-# Verification
+# Verification evidence
 
-Run `python -m pytest tests -q` and `ruff check .`. Unit tests exercise actual SDK registration, read-only credential validation, sanitized errors, no automatic paid retry, transient read-only task retry, and pending/completed output handling.
+- `test_plugin.py` and `contract-examples.json`: SDK registration, Dify defaults, request shapes, read-only credential validation, task/batch states, error redaction and no paid retries.
+- `branding-source.json`: exact source asset and SHA256.
+- `parity-audit.json` / `mcp-parity.json`: current backend/MCP revisions and operation/parameter mapping.
+- `e2e-results.json`: previous actual Dify primary-operation results, when available.
+- `e2e-audit.json`: second-audit actual Dify workflows, when available.
+- `e2e-blocked.json`: service failures, when present; these are not passing cases.
 
-The API schemas come from the PlatformBackend revision in `contract-source.json`. Real E2E uses isolated Dify CE 1.17.1 + plugin daemon 0.6.10-local with official remote debugging and signature verification enabled. A browser runs Start → tool → task retrieval → Output (synchronous APIs omit the task node). Preserve the task ID, verify terminal output and media, and reconcile Usage by task or trace. Never resubmit generation merely because polling was interrupted. E2E makes paid API calls and is not part of CI.
-
-`e2e-progress.json` is the current progress snapshot. It is not a claim of Marketplace publication or installation. Terminal evidence and browser screenshots are added after real validation completes.
-
-## Completed primary-operation evidence
-
-`e2e-results.json` records terminal successful real Dify workflows, actual output, media decode and matched nonzero billing. `evidence/` contains unmodified browser screenshots and the exact workflow graph. The screenshots show actual Dify run history/results. This proves the recorded cases, not every model/optional endpoint. Full Marketplace installation still depends on official publication.
+Paid real calls are never run by the unit suite or public CI. A passing schema test is not proof of service availability. Each browser case must include terminal workflow and service status; media outputs require decoding, and new paid calls require usage reconciliation. Marketplace installation is a separate gate after official publication.

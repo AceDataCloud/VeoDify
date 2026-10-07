@@ -1,0 +1,84 @@
+[
+  {
+    "name": "veo_generate_video-1",
+    "tool": "veo_generate_video",
+    "inputs": {
+      "prompt": "Test"
+    },
+    "method": "POST",
+    "path": "/veo/videos",
+    "body": {
+      "async": true
+    }
+  },
+  {
+    "name": "veo_extend_video-2",
+    "tool": "veo_extend_video",
+    "inputs": {
+      "model": "veo31-fast",
+      "video_id": "owned-video",
+      "prompt": "Continue"
+    },
+    "method": "POST",
+    "path": "/veo/extend",
+    "body": {
+      "video_id": "owned-video"
+    }
+  },
+  {
+    "name": "veo_edit_objects-3",
+    "tool": "veo_edit_objects",
+    "inputs": {
+      "action": "remove",
+      "video_id": "owned-video",
+      "prompt": "Remove ball"
+    },
+    "method": "POST",
+    "path": "/veo/objects",
+    "body": {
+      "action": "remove"
+    }
+  },
+  {
+    "name": "veo_reshoot_video-4",
+    "tool": "veo_reshoot_video",
+    "inputs": {
+      "motion_type": "STATIONARY",
+      "video_id": "owned-video"
+    },
+    "method": "POST",
+    "path": "/veo/reshoot",
+    "body": {
+      "motion_type": "STATIONARY"
+    }
+  },
+  {
+    "name": "veo_upsample_video-5",
+    "tool": "veo_upsample_video",
+    "inputs": {
+      "action": "1080p",
+      "video_id": "owned-video"
+    },
+    "method": "POST",
+    "path": "/veo/upsample",
+    "body": {
+      "action": "1080p"
+    }
+  },
+  {
+    "name": "veo_tasks_retrieve_batch-6",
+    "tool": "veo_tasks_retrieve_batch",
+    "inputs": {
+      "ids": "[\"owned-task\"]"
+    },
+    "method": "POST",
+    "path": "/veo/tasks",
+    "body": {
+      "action": "retrieve_batch",
+      "ids": [
+        "owned-task"
+      ]
+    },
+    "read_only": true
+  }
+]

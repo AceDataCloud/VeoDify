@@ -1,0 +1,82 @@
+identity:
+  name: veo_upsample_video
+  author: acedatacloud
+  label:
+    en_US: Veo Upsample Video
+    zh_Hans: Veo 提升视频规格
+description:
+  human:
+    en_US: Upsample Video through the Ace Data Cloud Veo API.
+    zh_Hans: 通过 Ace Data Cloud Veo API 执行 Upsample Video。
+  llm: Upsample Video through the Ace Data Cloud Veo API. For asynchronous results,
+    preserve task_id and use the task retrieval tool until completion. A successful
+    submission is not completed output.
+parameters:
+- name: action
+  type: select
+  required: true
+  form: form
+  label:
+    en_US: Action
+    zh_Hans: 操作
+  human_description:
+    en_US: Set action for this operation.
+    zh_Hans: 超分处理动作。`1080p` 将视频升频至 1080p 分辨率，`4k` 将视频升频至 4K 分辨率，`gif` 生成动态 GIF 预览图。
+  llm_description: Set action for this operation.
+  options:
+  - value: 1080p
+    label:
+      en_US: 1080p
+      zh_Hans: 1080p
+  - value: 4k
+    label:
+      en_US: 4k
+      zh_Hans: 4k
+  - value: gif
+    label:
+      en_US: gif
+      zh_Hans: gif
+- name: video_id
+  type: string
+  required: true
+  form: form
+  label:
+    en_US: Video Id
+    zh_Hans: 视频 ID
+  human_description:
+    en_US: Set video id for this operation.
+    zh_Hans: 已生成视频任务的 ID，可由 `/veo/videos`、`/veo/extend`、`/veo/reshoot` 或 `/veo/objects`
+      接口返回。
+  llm_description: Set video id for this operation.
+- name: callback_url
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Callback Url
+    zh_Hans: 回调 URL
+  human_description:
+    en_US: Set callback url for this operation.
+    zh_Hans: 视频超分完成后将被调用的回调地址（URL）。
+  llm_description: Set callback url for this operation.
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/veo_upsample_video.py

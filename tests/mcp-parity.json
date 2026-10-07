@@ -1,0 +1,101 @@
+{
+  "mcp_revision": "f0eed10abf310824cb4c33d4944c63d3654ac95b",
+  "mapping": [
+    {
+      "mcp_tool": "veo_list_models",
+      "dify_tools": [],
+      "parameters": {},
+      "unresolved": [],
+      "note": "Model/action selectors and the API reference; informational guidance does not submit a request."
+    },
+    {
+      "mcp_tool": "veo_list_actions",
+      "dify_tools": [],
+      "parameters": {},
+      "unresolved": [],
+      "note": "Model/action selectors and the API reference; informational guidance does not submit a request."
+    },
+    {
+      "mcp_tool": "veo_get_prompt_guide",
+      "dify_tools": [],
+      "parameters": {},
+      "unresolved": [],
+      "note": "Model/action selectors and the API reference; informational guidance does not submit a request."
+    },
+    {
+      "mcp_tool": "veo_get_task",
+      "dify_tools": [
+        "veo_task_retrieve"
+      ],
+      "parameters": {
+        "task_id": "task_id",
+        "trace_id": "trace_id"
+      },
+      "unresolved": [],
+      "note": "Set action=retrieve"
+    },
+    {
+      "mcp_tool": "veo_get_tasks_batch",
+      "dify_tools": [
+        "veo_tasks_retrieve_batch"
+      ],
+      "parameters": {
+        "task_ids": "ids",
+        "trace_ids": "trace_ids",
+        "offset": "offset",
+        "limit": "limit",
+        "type": "type",
+        "created_at_min": "created_at_min",
+        "created_at_max": "created_at_max"
+      },
+      "unresolved": [],
+      "note": "Set action=retrieve_batch"
+    },
+    {
+      "mcp_tool": "veo_text_to_video",
+      "dify_tools": [
+        "veo_generate_video"
+      ],
+      "parameters": {
+        "prompt": "prompt",
+        "model": "model",
+        "aspect_ratio": "aspect_ratio",
+        "translation": "translation",
+        "resolution": "resolution",
+        "callback_url": "callback_url"
+      },
+      "unresolved": [],
+      "note": "Set action=text2video"
+    },
+    {
+      "mcp_tool": "veo_image_to_video",
+      "dify_tools": [
+        "veo_generate_video"
+      ],
+      "parameters": {
+        "prompt": "prompt",
+        "image_urls": "image_urls",
+        "model": "model",
+        "aspect_ratio": "aspect_ratio",
+        "translation": "translation",
+        "resolution": "resolution",
+        "callback_url": "callback_url"
+      },
+      "unresolved": [],
+      "note": ""
+    },
+    {
+      "mcp_tool": "veo_get_1080p",
+      "dify_tools": [
+        "veo_generate_video"
+      ],
+      "parameters": {
+        "video_id": "video_id",
+        "model": "model",
+        "callback_url": "callback_url"
+      },
+      "unresolved": [],
+      "note": ""
+    }
+  ]
+}
