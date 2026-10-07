@@ -167,17 +167,11 @@ parameters:
     zh_Hans: 图片链接
   human_description:
     en_US: Required for image2video. Use 1-3 images (depending on model capability).
-      Enter a JSON array. Enter a JSON array or object where applicable. Enter a JSON
-      array or object where applicable. Enter a JSON array or object where applicable.
-      Enter a JSON array or object where applicable. Enter a JSON array or object
-      where applicable.
+      Enter a JSON array. Enter a JSON array or object where applicable.
     zh_Hans: 生成视频时使用的参考图片 URL 列表，仅在 action 为 `image2video` 或 `ingredients2video` 时有效。
       数组或对象请使用 JSON 格式。
   llm_description: Required for image2video. Use 1-3 images (depending on model capability).
-    Enter a JSON array. Enter a JSON array or object where applicable. Enter a JSON
-    array or object where applicable. Enter a JSON array or object where applicable.
-    Enter a JSON array or object where applicable. Enter a JSON array or object where
-    applicable.
+    Enter a JSON array. Enter a JSON array or object where applicable.
 - name: callback_url
   type: string
   required: false

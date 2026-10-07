@@ -1,0 +1,58 @@
+{
+  "tested_at": "2026-10-07T08:53:40.350109+00:00",
+  "environment": "Dify CE 1.17.1 / plugin daemon 0.6.10-local",
+  "transport": "official remote-debug; signature verification enabled",
+  "browser_test_run": true,
+  "unit_contract_tests": "30 passed, 1 warning in 0.59s",
+  "marketplace_toolkit_passed": true,
+  "package_sha256": "c045b107d72257e7f97baa43f2d59e9dd21f7333afc9a246f654897a3d5ddf30",
+  "exact_package_serverless_install_passed": true,
+  "marketplace_install_tested": false,
+  "cloud_tested": false,
+  "cases": [
+    {
+      "case": "Veo Audit Batch",
+      "tool": "veo_tasks_retrieve_batch",
+      "workflow_run_id": "5ce75762-cd07-4c2f-8875-09e11ec8560b",
+      "workflow_status": "succeeded",
+      "service_status": "succeeded",
+      "task_id": "",
+      "trace_id": "",
+      "media_urls": [
+        "https://platform2.cdn.acedata.cloud/veo/a5f64a83-2db3-4e01-8b71-e4ce5e091069.mp4"
+      ],
+      "error": null,
+      "new_submission": false,
+      "media_verification": [
+        {
+          "case": "Veo Audit Batch",
+          "size": 1085386,
+          "sha256": "d945f45a009cd8fd25e402f8b8f091bea6a93986bdda07fb5bd93a3413956528",
+          "duration": "6.016000",
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720
+            },
+            {
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "width": null,
+              "height": null
+            }
+          ],
+          "full_decode": true
+        }
+      ],
+      "result_fields": [
+        "items"
+      ],
+      "screenshot": "evidence/veo-audit-batch.png",
+      "workflow": "evidence/veo-audit-batch-workflow.json"
+    }
+  ],
+  "primary_blocked": false,
+  "scope_note": "Recorded cases only. Batch regressions reuse earlier paid successful tasks; those media generations are not billed or claimed as new. New paid calls have separate usage reconciliation. Optional untested models/actions are not claimed as passed; original failures and their corrections are preserved."
+}
