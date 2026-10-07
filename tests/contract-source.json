@@ -1,0 +1,17 @@
+{
+  "backend_revision": "7b4bbf0e4f6b83c273baed1d5b8e9bea0f3ece1c",
+  "apis": [
+    {
+      "path": "/veo/videos",
+      "spec": "openapi/52a0fa83-3c78-4793-b45a-c1a5c869ae46.json"
+    }
+  ],
+  "icon_source": {
+    "repository": "AceDataCloud/Dify",
+    "revision": "eaf0e68cd34cfe4cadece7a9ee34a98aac6b961e^",
+    "path": "plugins/veo/_assets/icon.jpg"
+  },
+  "icon_sha256": {
+    "icon.jpg": "ef805ef52b10a461af85c567f5f1915b79b3ef22c21ba8c74a122199f99c3fd4"
+  }
+}
