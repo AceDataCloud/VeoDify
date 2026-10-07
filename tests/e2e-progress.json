@@ -2,5 +2,5 @@
   "environment": "Dify CE 1.17.1, plugin daemon 0.6.10-local, official remote debug, signature verification enabled",
   "marketplace_install_tested": false,
   "cases": [],
-  "status": "E2E and output/billing audit in progress"
+  "status": "Primary operation completed in real Dify; final evidence in e2e-results.json"
 }

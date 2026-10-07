@@ -1,0 +1,64 @@
+{
+  "tested_at": "2026-10-07T06:27:27.709271+00:00",
+  "environment": "Dify CE 1.17.1 / plugin daemon 0.6.10-local",
+  "transport": "official remote-debug; signature verification true",
+  "browser_test_run": true,
+  "marketplace_install_tested": false,
+  "cloud_tested": false,
+  "cases": [
+    {
+      "case": "Veo Dify Task Recovery",
+      "operation": "veo_generate_video",
+      "workflow_run_id": "34880b32-7069-4078-bd7d-df345a19c0fe",
+      "workflow_status": "succeeded",
+      "task_status": "succeeded",
+      "task_id": "a5f64a83-2db3-4e01-8b71-e4ce5e091069",
+      "trace_id": "d2c6edfb-1d8d-45f4-b3dd-b20c05e1ba21",
+      "media_urls": [
+        "https://platform2.cdn.acedata.cloud/veo/a5f64a83-2db3-4e01-8b71-e4ce5e091069.mp4"
+      ],
+      "output": [
+        {
+          "complete_at": "2026-10-07 14:23:57",
+          "created_at": "2026-10-07 14:22:51",
+          "id": "604882e158b34d4a8e26fcc292d696d1",
+          "state": "succeeded",
+          "video_url": "https://platform2.cdn.acedata.cloud/veo/a5f64a83-2db3-4e01-8b71-e4ce5e091069.mp4"
+        }
+      ],
+      "billing": {
+        "id": "96134ef0-31db-4b04-9153-8f1af1431902",
+        "trace_id": "d2c6edfb-1d8d-45f4-b3dd-b20c05e1ba21",
+        "status_code": 200,
+        "deducted_amount": 0.648,
+        "created_at": "2026-10-07T06:22:51.400779Z"
+      },
+      "media_verification": [
+        {
+          "case": "Veo Dify Task Recovery",
+          "size": 1085386,
+          "sha256": "d945f45a009cd8fd25e402f8b8f091bea6a93986bdda07fb5bd93a3413956528",
+          "duration": "6.016000",
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720
+            },
+            {
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "width": null,
+              "height": null
+            }
+          ],
+          "full_decode": true
+        }
+      ],
+      "screenshot": "evidence/veo-dify-task-recovery.png",
+      "workflow": "evidence/veo-dify-task-recovery-workflow.json"
+    }
+  ],
+  "scope_note": "These completed cases establish the primary plugin operation. Additional exposed operations require their own case before claiming full coverage."
+}
