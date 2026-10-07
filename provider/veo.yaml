@@ -29,7 +29,12 @@ credentials_for_provider:
     url: https://platform.acedata.cloud/console/credentials
 tools:
 - tools/veo_generate.yaml
+- tools/veo_extend_video.yaml
+- tools/veo_edit_objects.yaml
+- tools/veo_reshoot_video.yaml
+- tools/veo_upsample_video.yaml
 - tools/veo_task_retrieve.yaml
+- tools/veo_tasks_retrieve_batch.yaml
 extra:
   python:
     source: provider/veo.py

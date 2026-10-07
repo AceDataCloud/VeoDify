@@ -1,0 +1,101 @@
+identity:
+  name: veo_edit_objects
+  author: acedatacloud
+  label:
+    en_US: Veo Edit Objects
+    zh_Hans: Veo 增删视频对象
+description:
+  human:
+    en_US: Edit Objects through the Ace Data Cloud Veo API.
+    zh_Hans: 通过 Ace Data Cloud Veo API 执行 Edit Objects。
+  llm: Edit Objects through the Ace Data Cloud Veo API. For asynchronous results,
+    preserve task_id and use the task retrieval tool until completion. A successful
+    submission is not completed output.
+parameters:
+- name: action
+  type: select
+  required: true
+  form: form
+  label:
+    en_US: Action
+    zh_Hans: 操作
+  human_description:
+    en_US: Set action for this operation.
+    zh_Hans: '`insert` 表示向视频中添加对象；`remove` 表示从指定区域删除对象。使用 `insert` 时，`prompt` 为必填项，`image_mask`
+      为可选项（若不提供，AI 将自动确定放置位置）；使用 `remove` 时，`image_mask` 为必填项。'
+  llm_description: Set action for this operation.
+  options:
+  - value: insert
+    label:
+      en_US: insert
+      zh_Hans: insert
+  - value: remove
+    label:
+      en_US: remove
+      zh_Hans: remove
+- name: video_id
+  type: string
+  required: true
+  form: form
+  label:
+    en_US: Video Id
+    zh_Hans: 视频 ID
+  human_description:
+    en_US: Set video id for this operation.
+    zh_Hans: 已生成视频任务的 ID。通过 `/veo/extend` 生成的视频不能作为来源视频使用。
+  llm_description: Set video id for this operation.
+- name: prompt
+  type: string
+  required: false
+  form: llm
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  human_description:
+    en_US: Set prompt for this operation.
+    zh_Hans: 当 `action=insert` 时为必填项，用于描述要添加的内容；当 `action=remove` 时为可选项，用于描述要移除的内容（主要用于日志记录，实际操作区域由蒙版图像决定）。
+  llm_description: Set prompt for this operation.
+- name: image_mask
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Image Mask
+    zh_Hans: image mask
+  human_description:
+    en_US: Set image mask for this operation.
+    zh_Hans: 蒙版图像，其中白色像素表示需要操作的区域。支持公开可访问的 HTTP(S) URL，或 base64 编码的 JPEG 图像（可带或不带
+      `data:image/jpeg;base64,` 前缀）。`action=remove` 时为必填项；`action=insert` 时为可选项。
+  llm_description: Set image mask for this operation.
+- name: callback_url
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Callback Url
+    zh_Hans: 回调 URL
+  human_description:
+    en_US: Set callback url for this operation.
+    zh_Hans: 操作完成后将被调用的回调 URL。
+  llm_description: Set callback url for this operation.
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/veo_edit_objects.py

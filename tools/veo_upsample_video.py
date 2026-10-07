@@ -9,10 +9,10 @@ from dify_plugin.entities.tool import ToolInvokeMessage
 from tools.acedata_client import AceDataVeoClient
 
 
-class VeoTaskRetrieveTool(Tool):
+class VeoUpsampleVideoTool(Tool):
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage, None, None]:
         result = AceDataVeoClient(self.runtime.credentials.get("acedata_bearer_token", "")).invoke(
-            "veo_task_retrieve", tool_parameters
+            "veo_upsample_video", tool_parameters
         )
         yield self.create_json_message(result)
         for name, value in result.items():

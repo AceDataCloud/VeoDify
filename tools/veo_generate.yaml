@@ -8,22 +8,24 @@ description:
   human:
     en_US: Generate videos with Ace Data Cloud Veo Videos API.
     zh_Hans: 通过 Ace Data Cloud Veo Videos API 生成视频。
-  llm: Generate a video from prompt / images via Ace Data Cloud Veo Videos API. Generation
-    returns a task ID. Query the same task until complete; never resubmit a pending
-    generation.
+  llm: Generate videos with Ace Data Cloud Veo Videos API. For asynchronous results,
+    preserve task_id and use the task retrieval tool until completion. A successful
+    submission is not completed output.
 parameters:
 - name: model
   type: select
   required: false
+  form: form
   label:
     en_US: Model
     zh_Hans: 模型
   human_description:
-    en_US: Select the current API model for this operation.
+    en_US: Select a model currently supported by this API. Availability and pricing
+      depend on the chosen model.
     zh_Hans: 用于生成视频的模型，默认值为 `veo3-fast`，示例使用 `veo31-fast`。若 `resolution` 为 `4k`，此处必须填
       `veo31`（且 `action` 需为 `text2video`）。
-  llm_description: Select the current API model for this operation.
-  form: form
+  llm_description: Select a model currently supported by this API. Availability and
+    pricing depend on the chosen model.
   default: veo31-fast
   options:
   - value: veo3
@@ -49,14 +51,15 @@ parameters:
 - name: resolution
   type: select
   required: false
+  form: form
   label:
     en_US: Resolution
     zh_Hans: 分辨率
   human_description:
     en_US: Optional output resolution.
-    zh_Hans: 可选输出分辨率。
+    zh_Hans: 生成视频的分辨率，可选值为 `4k`、`1080p` 或 `gif`，默认值为 `1080p`。`4k` 仅在 `action` 为 `text2video`
+      且 `model` 为 `veo31` 时可用，其他组合会在生成阶段失败。
   llm_description: Optional output resolution.
-  form: form
   options:
   - value: 4k
     label:
@@ -73,14 +76,16 @@ parameters:
 - name: action
   type: select
   required: false
+  form: form
   label:
     en_US: Action
     zh_Hans: 行为
   human_description:
     en_US: Choose how to generate the video.
-    zh_Hans: 选择视频生成方式。
+    zh_Hans: 生成视频的动作类型。`text2video` 根据提示词生成视频；`image2video` 根据 1-2 张参考图片（首帧，或首帧 +
+      尾帧）生成视频；`ingredients2video` 根据 1-3 张参考图片生成视频，内部强制使用 `veo31-fast-ingredients`
+      模型（该动作下 model 参数会被忽略）；`get1080p` 是 `POST /veo/upsample`（`action=1080p`）的已废弃别名，仅为向后兼容保留。
   llm_description: Choose how to generate the video.
-  form: form
   default: text2video
   options:
   - value: text2video
@@ -102,47 +107,47 @@ parameters:
 - name: prompt
   type: string
   required: false
+  form: llm
   label:
     en_US: Prompt
     zh_Hans: 提示词
   human_description:
     en_US: Required for text2video and image2video.
-    zh_Hans: text2video / image2video 必填。
+    zh_Hans: 用于生成视频的提示词。
   llm_description: Required for text2video and image2video.
-  form: llm
 - name: video_id
   type: string
   required: false
+  form: form
   label:
     en_US: Video ID
     zh_Hans: 视频ID
   human_description:
     en_US: Required for get1080p.
-    zh_Hans: get1080p 必填。
+    zh_Hans: 需要引用的视频 ID，仅在 action 为 `get1080p` 时有效。
   llm_description: Required for get1080p.
-  form: form
 - name: translation
   type: boolean
   required: false
+  form: form
   label:
     en_US: Auto-translate prompt
     zh_Hans: 自动翻译提示词
   human_description:
     en_US: Enable automatic prompt translation.
-    zh_Hans: 是否开启提示词自动翻译。
+    zh_Hans: 是否启用提示词自动翻译，默认值为 `false`。
   llm_description: Enable automatic prompt translation.
-  form: form
 - name: aspect_ratio
   type: select
   required: false
+  form: form
   label:
     en_US: Aspect ratio
     zh_Hans: 画面比例
   human_description:
     en_US: Optional output aspect ratio.
-    zh_Hans: 可选输出画面比例。
+    zh_Hans: 设置视频输出的宽高比，仅支持 `16:9` 或 `9:16`。
   llm_description: Optional output aspect ratio.
-  form: form
   default: '16:9'
   options:
   - value: '16:9'
@@ -156,16 +161,34 @@ parameters:
 - name: image_urls
   type: string
   required: false
+  form: form
   label:
     en_US: Image URLs
     zh_Hans: 图片链接
   human_description:
     en_US: Required for image2video. Use 1-3 images (depending on model capability).
-      Enter a JSON array.
-    zh_Hans: image2video 必填。根据模型能力传 1-3 张图。 请填写 JSON 数组。
+      Enter a JSON array. Enter a JSON array or object where applicable. Enter a JSON
+      array or object where applicable. Enter a JSON array or object where applicable.
+      Enter a JSON array or object where applicable. Enter a JSON array or object
+      where applicable.
+    zh_Hans: 生成视频时使用的参考图片 URL 列表，仅在 action 为 `image2video` 或 `ingredients2video` 时有效。
+      数组或对象请使用 JSON 格式。
   llm_description: Required for image2video. Use 1-3 images (depending on model capability).
-    Enter a JSON array.
+    Enter a JSON array. Enter a JSON array or object where applicable. Enter a JSON
+    array or object where applicable. Enter a JSON array or object where applicable.
+    Enter a JSON array or object where applicable. Enter a JSON array or object where
+    applicable.
+- name: callback_url
+  type: string
+  required: false
   form: form
+  label:
+    en_US: Callback Url
+    zh_Hans: 回调 URL
+  human_description:
+    en_US: Set callback url for this operation.
+    zh_Hans: 视频生成完成后将被调用的回调 URL。
+  llm_description: Set callback url for this operation.
 output_schema:
   type: object
   properties:

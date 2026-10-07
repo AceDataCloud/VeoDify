@@ -1,0 +1,131 @@
+identity:
+  name: veo_tasks_retrieve_batch
+  author: acedatacloud
+  label:
+    en_US: Veo Retrieve Tasks
+    zh_Hans: Veo 批量查询任务
+description:
+  human:
+    en_US: Retrieve existing tasks by ID without repeating generation.
+    zh_Hans: 按 ID 批量查询已有任务，不重复提交生成。
+  llm: Query existing task IDs. Each item retains its own terminal or pending status.
+parameters:
+- name: ids
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Ids
+    zh_Hans: ID 列表
+  human_description:
+    en_US: Use the task ID or IDs returned by earlier submissions. Enter a JSON array
+      or object where applicable.
+    zh_Hans: 使用之前提交返回的任务 ID。 数组或对象请使用 JSON 格式。
+  llm_description: Use the task ID or IDs returned by earlier submissions. Enter a
+    JSON array or object where applicable.
+- name: trace_id
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Trace Id
+    zh_Hans: 追踪 ID
+  human_description:
+    en_US: Set trace id for this operation.
+    zh_Hans: 要查询的单个任务的追踪 ID。
+  llm_description: Set trace id for this operation.
+- name: trace_ids
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Trace Ids
+    zh_Hans: 追踪 ID 列表
+  human_description:
+    en_US: Set trace ids for this operation. Enter a JSON array or object where applicable.
+      Enter a JSON array or object where applicable. Enter a JSON array or object
+      where applicable. Enter a JSON array or object where applicable. Enter a JSON
+      array or object where applicable.
+    zh_Hans: 要查询的多个任务的追踪 ID。 数组或对象请使用 JSON 格式。
+  llm_description: Set trace ids for this operation. Enter a JSON array or object
+    where applicable. Enter a JSON array or object where applicable. Enter a JSON
+    array or object where applicable. Enter a JSON array or object where applicable.
+    Enter a JSON array or object where applicable.
+- name: offset
+  type: number
+  required: false
+  form: form
+  label:
+    en_US: Offset
+    zh_Hans: 偏移量
+  human_description:
+    en_US: Set offset for this operation.
+    zh_Hans: 列表查询时跳过的匹配任务数量。
+  llm_description: Set offset for this operation.
+  min: 0
+- name: limit
+  type: number
+  required: false
+  form: form
+  label:
+    en_US: Limit
+    zh_Hans: 返回数量
+  human_description:
+    en_US: Set limit for this operation.
+    zh_Hans: 返回的最大任务数量。
+  llm_description: Set limit for this operation.
+  min: 1
+- name: type
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Type
+    zh_Hans: 类型
+  human_description:
+    en_US: Set type for this operation.
+    zh_Hans: 可选任务类型过滤器。
+  llm_description: Set type for this operation.
+- name: created_at_min
+  type: number
+  required: false
+  form: form
+  label:
+    en_US: Created At Min
+    zh_Hans: 创建时间下限
+  human_description:
+    en_US: Set created at min for this operation.
+    zh_Hans: 仅返回晚于该 Unix 时间戳创建的任务。
+  llm_description: Set created at min for this operation.
+- name: created_at_max
+  type: number
+  required: false
+  form: form
+  label:
+    en_US: Created At Max
+    zh_Hans: 创建时间上限
+  human_description:
+    en_US: Set created at max for this operation.
+    zh_Hans: 仅返回早于该 Unix 时间戳创建的任务。
+  llm_description: Set created at max for this operation.
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/veo_tasks_retrieve_batch.py
