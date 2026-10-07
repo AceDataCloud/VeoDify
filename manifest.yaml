@@ -1,0 +1,39 @@
+version: 0.0.1
+type: plugin
+author: acedatacloud
+name: veo
+label:
+  en_US: Veo
+  zh_Hans: Veo
+  ja_JP: Veo
+  pt_BR: Veo
+description:
+  en_US: Use the Ace Data Cloud Veo APIs in Dify workflows.
+  zh_Hans: 在 Dify 工作流中使用 Ace Data Cloud Veo API。
+icon: icon.jpg
+icon_dark: icon.jpg
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+plugins:
+  tools:
+  - provider/veo.yaml
+meta:
+  version: 0.0.1
+  minimum_dify_version: 1.17.1
+  arch:
+  - amd64
+  - arm64
+  runner:
+    language: python
+    version: '3.12'
+    entrypoint: main
+created_at: '2026-10-07T12:00:00+08:00'
+privacy: PRIVACY.md
+repo: https://github.com/AceDataCloud/VeoDify
+contact: dev@acedata.cloud
+network:
+  domains:
+  - api.acedata.cloud
