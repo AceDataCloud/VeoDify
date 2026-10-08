@@ -6,12 +6,7 @@ app:
   mode: workflow
   name: Veo Step-by-step Tutorial
   use_icon_as_answer_icon: false
-dependencies:
-- current_identifier: null
-  type: marketplace
-  value:
-    marketplace_plugin_unique_identifier: acedatacloud/veo:0.0.1@4e04f834dd7bab987efd0627487f26557f57f7323c6b690abcac8522c9631f30
-    version: null
+dependencies: []
 kind: app
 version: 0.7.0
 workflow:
@@ -86,7 +81,6 @@ workflow:
       zIndex: 0
     - data:
         desc: ''
-        plugin_unique_identifier: acedatacloud/veo:0.0.1@4e04f834dd7bab987efd0627487f26557f57f7323c6b690abcac8522c9631f30
         provider_id: acedatacloud/veo/veo
         provider_name: acedatacloud/veo/veo
         provider_type: builtin
@@ -131,7 +125,6 @@ workflow:
       zIndex: 0
     - data:
         desc: ''
-        plugin_unique_identifier: acedatacloud/veo:0.0.1@4e04f834dd7bab987efd0627487f26557f57f7323c6b690abcac8522c9631f30
         provider_id: acedatacloud/veo/veo
         provider_name: acedatacloud/veo/veo
         provider_type: builtin
