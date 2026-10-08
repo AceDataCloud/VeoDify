@@ -1,0 +1,31 @@
+{
+  "repo": "VeoDify",
+  "marketplace_url": "https://marketplace.dify.ai/plugin/acedatacloud/veo",
+  "identifier": "acedatacloud/veo:0.0.1@4e04f834dd7bab987efd0627487f26557f57f7323c6b690abcac8522c9631f30",
+  "installation_source": "marketplace",
+  "workflow_id": "17b12ce6-747c-4555-bfb3-f39bfaa96b9e",
+  "workflow_status": "succeeded",
+  "service_status": "succeeded",
+  "case": "Veo Marketplace Installed",
+  "media_urls": [
+    "https://platform2.cdn.acedata.cloud/veo/a5f64a83-2db3-4e01-8b71-e4ce5e091069.mp4"
+  ],
+  "outputs": {
+    "status": "succeeded",
+    "success": true,
+    "task_id": "",
+    "trace_id": ""
+  },
+  "icon_matches_source": true,
+  "paid_generation_reused": true,
+  "prior_media_decode_evidence": true,
+  "media_readback_status": "completed existing task output; generation not repeated",
+  "tested_at": "2026-10-08T01:26:57.567309+00:00",
+  "environment": "Dify CE 1.17.1 / plugin daemon 0.6.10-local",
+  "signature_verification_enabled": true,
+  "remote_debug_used": false,
+  "marketplace_install_tested": true,
+  "cloud_tested": false,
+  "screenshot": "evidence/marketplace-20261008.png",
+  "workflow": "evidence/marketplace-20261008-workflow.json"
+}
